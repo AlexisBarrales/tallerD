@@ -7,14 +7,8 @@ from django.views.generic.base import TemplateView
 from apps.productos.formulario import ProductoForm,CategoriaForm
 from django.db.models import F,Sum
 from collections import Counter
-#from apps.productos.formulario import ProductoForm,CategoriaForm
-# Create your views here.
 
-#def index(request): 
-#	return HttpResponse("Esta es la respuesta index")
 	
-def index(request): #genera la llamada a la pagina
-	return HttpResponse("Esta es la respuesta index")#respuesat del servidor a la pagina
 
 
 def listado(request):
@@ -34,15 +28,15 @@ def categorias(request):
 
 
 	return render(request, 'productos/listado.html',contexto)
-	#return HttpResponse("Esta es la respuesta listado")
+	
 def agregarProducto(request):
 	if request.method == 'POST':
-		form=ProductoForm(request.POST) #verificar si el formulario fue mandado el POST
-		if form.is_valid(): #verifciar si el formulario en valido
-			form.save() #guarda el formulario
-		return redirect('listado') #redireciona a otra pagina
+		form=ProductoForm(request.POST) 
+		if form.is_valid(): 
+			form.save() 
+		return redirect('listado') 
 	else: 
-		form = ProductoForm() #crearemos objeto forms que importamos de nuestro form
+		form = ProductoForm() 
 
 	
 	return render(request,'productos/formularioProducto.html')
@@ -50,13 +44,12 @@ def agregarProducto(request):
 
 def agregarCategoria(request):
 	if request.method == 'POST':
-		form=CategoriaForm(request.POST) #verificar si el formulario fue mandado el POST
-		if form.is_valid(): #verifciar si el formulario en valido
-			form.save() #guarda el formulario
-		return redirect('listadoCategorias') #redireciona a otra pagina
+		form=CategoriaForm(request.POST) 
+		if form.is_valid(): 
+			form.save() 
+		return redirect('listadoCategorias') 
 	else: 
-		form = CategoriaForm() #crearemos objeto forms que importamos de nuestro form
-
+		form = CategoriaForm() 
 	
 	return render(request,'productos/formularioCategorias.html',{'form': form})
 
@@ -89,7 +82,6 @@ def editarCategoria(request,idCategoria):
 	if form.is_valid():
 		form.save()
 		return redirect('listadoCategorias')
-
 	return render(request, 'productos/editarCategorias.html', {'form': form}) 
 
 
@@ -107,13 +99,11 @@ def venta(request):
 
 
 def agregarCarrito(request,idProducto):
-
 	items=request.session.get('ids')
 	if  items== None:
-		items=[idProducto] #en otro caso intentar guardar todos los artributos del objeto desde el principio con .objects.get(id=idCategoria) por ejemplo
+		items=[idProducto] 
 	else:
 		items.append(idProducto)
-	
 	request.session['ids']=items
 	return redirect('venta')
 
@@ -122,36 +112,23 @@ def agregarCarrito(request,idProducto):
 
 def verCarrito(request):
 	items=request.session.get('ids')
-	"""contextoD=0
-	for x in range(0,len(items)):
-		contextoD +=(producto.objects.filter(id=items[x]))"""
 	contexto = { 
 		'productos': producto.objects.filter(id__in=items)
 	}
-	#index=Counter(items)
 	total=0
-	#total=(producto.objects.filter(id__in=items).values('costo'))
 	total=(producto.objects.filter(id__in=items).aggregate(Sum('costo')))
-	contexto['total']=total
-	#request.session.pop('ids')
-	
-	
-	
-	return render(request, 'productos/verCarrito.html',contexto)#producto.objects.filter(id=request.session.get('ids')[0])
-	#return HttpResponse()
+	contexto['total']=total	
+	return render(request, 'productos/verCarrito.html',contexto)
 
 
 	
 def confirmar(request):
 	items=request.session.get('ids')
-	#NumeroExistencias
 	contexto=  producto.objects.filter(id__in=items)
 	total=0
 	for x in range(0,len(contexto)):
 		contexto[x].numeroExistencias=contexto[x].numeroExistencias-1
 		contexto[x].save()
-	
-	request.session.pop('ids')
-		
+	request.session.pop('ids')	
 	return redirect('venta')
 

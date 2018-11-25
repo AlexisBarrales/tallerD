@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from apps.productos.views import index,listado,agregarProducto,agregarCategoria,categorias,editarProducto,eliminarProducto,\
+from apps.productos.views import listado,agregarProducto,agregarCategoria,categorias,editarProducto,eliminarProducto,\
 editarCategoria,eliminarCategoria,venta,agregarCarrito,verCarrito,confirmar
 #from django.views.generic.base import TemplateView
 from django.views.generic import TemplateView

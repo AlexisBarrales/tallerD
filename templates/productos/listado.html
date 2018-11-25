@@ -1,24 +1,17 @@
 
 {% load staticfiles %}
 <body class="lo">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css ' %}">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="{% url 'home'%}">Shopify</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
+		
+		<div class="" id="navbarNav">
 			<ul class="navbar-nav">
-				<!--<li class="nav-item active">
-					<a class="nav-link" href="">Productos<span class="sr-only">(current)</span></a>
-				</li>-->
 				
 				<li class="nav-item">
 					<a class="nav-link" href="{% url 'agregarProducto'%}">Agregar Nuevo Producto</a>
 				</li>
-				<!--<li class="nav-item">
-					<a class="nav-link" href="{% url 'agregarCategoria'%}">AgregarCategorias</a>
-				</li>-->
+				
 				
 				
 			</ul>
@@ -26,14 +19,14 @@
 	</nav>
 	{% block content %}
 
-
-	<div class="conteiner py-2">	
+	
+	<div class="conteiner ">	
 		<div class="row">
 
 			<div class="col-md">
 
-				<table class="table table-secondary table-striped table-bordered" id="hol">
-					<thead class="thead-light">
+				<table class="table table-primary" id="hol">
+					<thead class="thead-primary">
 						<tr>
 							<tr>
 								<th scope="col">No.</th>
